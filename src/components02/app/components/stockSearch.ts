@@ -1,13 +1,11 @@
-import {Component, View, provide} from 'angular2/core'
+import {Component, provide} from 'angular2/core'
 import {StockList} from './stockList'
 import {StockFull} from './stockFull'
 import {StocksService} from '../services/StocksService'
 
 @Component({
   selector: 'StockSearch',
-  providers: [StocksService]
-})
-@View({
+  providers: [StocksService],
   template: `
     <section>
       <h3>Stock Price & Name Lookup:</h3>

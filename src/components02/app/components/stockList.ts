@@ -1,10 +1,8 @@
 // List people
-import {Component, View, EventEmitter, Input, Output} from 'angular2/core';
+import {Component, EventEmitter, Input, Output} from 'angular2/core';
 
 @Component({
-  selector: 'StockList'
-})
-@View({
+  selector: 'StockList',
   template: `
     <ul class="stock-list">
       <li *ngFor="#stock of stocks" (click)="showStock.next(stock)"> 

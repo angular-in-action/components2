@@ -2,9 +2,7 @@ import {Component, View} from 'angular2/core'
 import {StockSearch} from './components/stockSearch';
 
 @Component({
-  selector: 'App'
-})
-@View({
+  selector: 'App',
   template: `
     <header>
       <h2>Simple Stock Search Angular 2 App</h2>

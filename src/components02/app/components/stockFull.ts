@@ -1,11 +1,9 @@
 // List people
-import {Component, View, EventEmitter} from 'angular2/core';
+import {Component, EventEmitter} from 'angular2/core';
 
 @Component({
   selector: 'StockFull',
-  inputs: ['stock']
-})
-@View({
+  inputs: ['stock'],
   template: `
     <header>Full Stock Info</header>
     <div>
