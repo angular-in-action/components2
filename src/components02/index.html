@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Basic Angular 2 Application Demonstration</title>
+  </head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/app.css">
+  
+  <body>
+    <App>
+      loading...
+    </App>
+    <script src="/lib/angular2-polyfills.js"></script>
+    <script src="/lib/system.js"></script>
+    <script src="/lib/Rx.js"></script>
+    <script src="/lib/angular2.dev.js"></script>
+    <script src="/lib/http.dev.js"></script>
+    <script>
+      System.config({
+        //packages defines our app package
+        packages: {'app': {defaultExtension: 'js'}}
+      });
+      
+      System.import('app/bootstrap')
+        .catch(console.error.bind(console));
+    </script>
+  </body>
+</html>
+
