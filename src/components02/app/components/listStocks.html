@@ -1,0 +1,29 @@
+  <div class="row">
+    <h2>Stocks</h2>
+    <div class="col-md-12">      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Symbol</th>
+            <th>Market Cap</th>
+            <th>Last Trade</th>
+            <th>Owned</th>
+            <th>Value</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="#stock of stocksData; #i=index">
+            <td>{{i+1}}</td>
+            <td>{{stock.symbol}}</td>
+            <td>{{stock.marketCapitalization}}</td>
+            <td>{{stock.lastTradePriceOnly | currency:'USD':true}}</td>
+            <td>{{stocksList[i].own}}</td>
+            <td>{{stocksList[i].own * stock.lastTradePriceOnly | currency:'USD':true}}</td>
+            <td><button (click)="showArticles.next(stock.symbol)">Show Articles</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -3,6 +3,9 @@
 var express = require('express');
 var path = require('path');
 var yahooFinance = require('yahoo-finance');
+var AlchemyNewsAPI = require('alchemy-news-api');
+var alchemyNewsAPI = new AlchemyNewsAPI('<FILLIN>');
+
 var minimist = require('minimist');
 
 // Express App
@@ -59,6 +62,27 @@ router.get('/api/historical/:symbol', function(req, res) {
     res.status(200).send(quotes);
   });
 });
+
+// Endpoint to load snapshot data from yahoo finance
+router.get('/api/fetchArticles', function(req, res) {
+  var symbol = req.query.symbol || 'CRM;'
+
+  var entityQuery = {
+      'entity_text': symbol,
+      'entity_type': 'company',
+      'return': ['url', 'title'],
+      'count': 3
+  };
+  alchemyNewsAPI.getNewsByEntity(entityQuery, function (error, response) {
+      if (error) {
+          console.log("**** Error in fetch", error);
+      } else {
+        res.status(200).send(response);
+      }
+  });
+
+});
+
 
 // router.get('/index2.html', function(req, res) {
 //   res.sendFile(DIST_DIR + '/client/index2.html');

@@ -1,0 +1,11 @@
+  <!-- Stories -->
+  <div class="row" *ngIf="articles">
+    <h2>Articles</h2>
+    <div class="col-md-12">
+      <ol>
+        <li *ngFor="#article of articles; #i=index">
+          <a href="{{article.source.enriched.url.url}}">{{article.source.enriched.url.title}}</a>
+        </li>
+      </ol>
+    </div>
+  </div>
