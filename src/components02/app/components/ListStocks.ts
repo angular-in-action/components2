@@ -1,52 +1,59 @@
 // List people
-import {Component, EventEmitter, OnInit, Input, Output} from 'angular2/core';
+import {Component, EventEmitter, OnInit, DoCheck, SimpleChange, Input, Output} from 'angular2/core';
 import {StocksService} from './../services/StocksService';
 import {ArticlesService} from './../services/ArticlesService';
 
 @Component({
   selector: 'ListStocks',
   templateUrl: './app/components/listStocks.html',
-  providers: [StocksService,ArticlesService]
+  providers: [ArticlesService]
 })
-export class ListStocks implements OnInit{
+export class ListStocks implements OnInit, DoCheck {
 
-  public @Input() stocksList: Array<string>; 
+  public stocksList: Array<string>;
   public @Output() showArticles: EventEmitter = new EventEmitter();
+
+  public stocksList: Array<Object> = [];
+  public prevStocksLength: number = -1;
+
+  defaultStocks = [
+    { symbol: 'CRM', own: 101 },
+    { symbol: 'AAPL', own: 301 }
+  ]
 
   constructor(public StocksService:StocksService, public articlesService:ArticlesService) {
   };
 
   ngOnInit() {
-    console.log("ListStocks ngOnInit", this.stocksList.join(','));
-    // LEAVE-OFF: Get the service to work to return information and put it into a prop
-    //   Then continue with the BP in EverNote AngularBook
-    var stocksSymbols = this.stocksList.map( (stock) => {
-      return stock.symbol;
+    this.defaultStocks.forEach( (item) => {
+      this.StocksService.addStock(item);
     })
-    this.StocksService.snapshot(stocksSymbols)
-    .subscribe(
-      (data) => { this.stocksData = data; console.log("stocksData", this.stocksData) },
-    (err) => { console.log('error!', err) }
-    );
+    this.fetchStocks();
   }
 
-  // showArticles(stock) {
-  //   showArticle.next(stock)
-  // }
+  // TODO: sloppy way of determining if a change has happened so we know if we need
+  //  to run the fetch again. Look into how/why this.stocksList gets updated
+  //  when something changes. 
+  // Use this as a demo of lifecycle, make an alternative version where a message
+  //  is emitted from AddStock which then changes a value here (perhaps as an input value
+  //  so I can use onChange to detect the change). 
+  ngDoCheck() {
+    console.log("changes", this.stocksList.length, this.prevStocksLength);
+    if (this.stocksList.length !== this.prevStocksLength) {
+      console.log("stocksList changed!")
+      this.fetchStocks();
+    }
+    this.prevStocksLength = this.stocksList.length;
+  }
 
-  // TODO: Move this to the NewsStocks component, activate it by sending a 
-  //   message or something to it. 
-  // Emit a message here, catch it in the app component. 
-  showArticles_orig(stock) {
-    this.articlesService.fetch(stock.symbol)
+  fetchStocks() {
+    this.StocksService.snapshot()
     .subscribe(
       (data) => {
-        console.log('articles from ListStocks', data);
+        this.stocksData = data;
+        this.stocksList = this.StocksService.getStocks();
       },
-      (err) => {
-        console.log('error in articlesService', err);
-      }
-    )
+      (err) => { console.log('error!', err) }
+    );
   }
-
 }

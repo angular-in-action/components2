@@ -8,7 +8,8 @@
 
   <TotalStock></TotalStock>
 
-  <ListStocks [stocksList]="stocksList" (showArticles)="showArticles=$event"></ListStocks>
+  <!-- <ListStocks [stocksList]="stocksList" (showArticles)="showArticles=$event"></ListStocks> -->
+  <ListStocks (showArticles)="showArticles=$event"></ListStocks>
 
   <NewsStocks [showArticles]="showArticles"></NewsStocks>
 
