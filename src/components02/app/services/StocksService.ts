@@ -15,16 +15,14 @@ export class StocksService {
   }
 
   addStock(stock) {
-    // debugger
     this._stocksList.push(stock);
-    return this.snapshot();
   }
 
   removeStock(symbol:string) {
-    var i;
-    if( (i = this._stocksList.indexOf(symbol)) > -1 ) {
-      this._stocksList.splice(i,1)  
-    }
+    var idx = this._stocksList.findIndex((item) => {
+      return item.symbol === symbol;
+    })
+    this._stocksList.splice(idx, 1);
   }
   
   snapshot():any {
@@ -37,7 +35,16 @@ export class StocksService {
 
     return this.http.get("/api/snapshot", {search: params})
       .map(res => res.json()) // convert to JSON
-      .map(x => x.filter(y => y.name)); // Remove invalid stocks (no name)
+      .map(x => x.filter(y => y.name)) // Remove invalid stocks (no name)
+      .map((x) => { 
+        // Add "own" to what has been returned. This assumes the 
+        // _stocksList array contains accurate info that matches to what 
+        // is returned by the API
+        for (var i = 0; i < x.length; i++ ) {
+          x[i].own = this._stocksList[i].own; 
+        }
+        return x;
+      })
   }
 
 

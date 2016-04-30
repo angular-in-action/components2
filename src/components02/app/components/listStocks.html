@@ -1,6 +1,6 @@
   <div class="row">
     <h2>Stocks</h2>
-    <div class="col-md-12">      
+    <div class="col-md-12">
       <table class="table">
         <thead>
           <tr>
@@ -19,9 +19,12 @@
             <td>{{stock.symbol}}</td>
             <td>{{stock.marketCapitalization}}</td>
             <td>{{stock.lastTradePriceOnly | currency:'USD':true}}</td>
-            <td>{{stocksList[i].own}}</td>
-            <td>{{stocksList[i].own * stock.lastTradePriceOnly | currency:'USD':true}}</td>
-            <td><button (click)="showArticles.next(stock.symbol)">Show Articles</button></td>
+            <td>{{stock.own}}</td>
+            <td>{{stock.own * stock.lastTradePriceOnly | currency:'USD':true}}</td>
+            <td>
+              <button (click)="showArticles.next(stock.symbol)">Show Articles</button>
+              <button (click)="removeStock(stock.symbol)">Remove</button>
+            </td> 
           </tr>
         </tbody>
       </table>

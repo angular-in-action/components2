@@ -10,10 +10,10 @@ import {ArticlesService} from './../services/ArticlesService';
 })
 export class ListStocks implements OnInit, DoCheck {
 
-  public stocksList: Array<string>;
   public @Output() showArticles: EventEmitter = new EventEmitter();
 
   public stocksList: Array<Object> = [];
+  public stocksData: Array<Object> = [];
   public prevStocksLength: number = -1;
 
   defaultStocks = [
@@ -21,39 +21,40 @@ export class ListStocks implements OnInit, DoCheck {
     { symbol: 'AAPL', own: 301 }
   ]
 
-  constructor(public StocksService:StocksService, public articlesService:ArticlesService) {
+  constructor(public stocksService:StocksService, public articlesService:ArticlesService) {
   };
 
   ngOnInit() {
     this.defaultStocks.forEach( (item) => {
-      this.StocksService.addStock(item);
+      this.stocksService.addStock(item);
     })
     this.fetchStocks();
   }
 
-  // TODO: sloppy way of determining if a change has happened so we know if we need
-  //  to run the fetch again. Look into how/why this.stocksList gets updated
-  //  when something changes. 
   // Use this as a demo of lifecycle, make an alternative version where a message
   //  is emitted from AddStock which then changes a value here (perhaps as an input value
   //  so I can use onChange to detect the change). 
   ngDoCheck() {
-    console.log("changes", this.stocksList.length, this.prevStocksLength);
-    if (this.stocksList.length !== this.prevStocksLength) {
-      console.log("stocksList changed!")
+    if (this.stocksService.getStocks().length !== this.prevStocksLength) {
       this.fetchStocks();
+      this.prevStocksLength = this.stocksService.getStocks().length;
     }
-    this.prevStocksLength = this.stocksList.length;
+
   }
 
   fetchStocks() {
-    this.StocksService.snapshot()
+    this.stocksService.snapshot()
     .subscribe(
       (data) => {
         this.stocksData = data;
-        this.stocksList = this.StocksService.getStocks();
       },
       (err) => { console.log('error!', err) }
     );
+  }
+
+  // TODO: This is removing but then it runs into an error somewhere down the line
+  //   on trying to get the new version 
+  removeStock(symbol:string) {
+    this.stocksService.removeStock(symbol);
   }
 }
