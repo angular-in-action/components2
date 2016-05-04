@@ -12,7 +12,6 @@ export class ListStocks implements OnInit, DoCheck {
 
   public @Output() showArticles: EventEmitter = new EventEmitter();
 
-  public stocksList: Array<Object> = [];
   public stocksData: Array<Object> = [];
   public prevStocksLength: number = -1;
 
@@ -28,6 +27,8 @@ export class ListStocks implements OnInit, DoCheck {
     this.defaultStocks.forEach( (item) => {
       this.stocksService.addStock(item);
     })
+    // Initialize so DoCheck doesn't re-request the same data
+    this.prevStocksLength = this.stocksService.getStocks().length;
     this.fetchStocks();
   }
 
@@ -46,7 +47,9 @@ export class ListStocks implements OnInit, DoCheck {
     this.stocksService.snapshot()
     .subscribe(
       (data) => {
-        this.stocksData = data;
+        // this.stocksData = data;
+        this.stocksData.length = 0;
+        this.stocksData.splice(0, undefined, ...data);
       },
       (err) => { console.log('error!', err) }
     );

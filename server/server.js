@@ -4,7 +4,7 @@ var express = require('express');
 var path = require('path');
 var yahooFinance = require('yahoo-finance');
 var AlchemyNewsAPI = require('alchemy-news-api');
-var alchemyNewsAPI = new AlchemyNewsAPI('YOUR TOKEN HERE');
+var alchemyNewsAPI = new AlchemyNewsAPI('53780fddf05dbce55bcbe957974a03ba6d09c413');
 
 var minimist = require('minimist');
 

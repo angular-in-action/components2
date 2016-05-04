@@ -6,12 +6,14 @@
   <!-- addStocks component -->
   <AddStock></AddStock>
 
-  <TotalStock></TotalStock>
+  <TotalStock [stocksData]="stocksData"></TotalStock>
 
   <!-- <ListStocks [stocksList]="stocksList" (showArticles)="showArticles=$event"></ListStocks> -->
   <ListStocks (showArticles)="showArticles=$event"></ListStocks>
 
   <NewsStocks [showArticles]="showArticles"></NewsStocks>
+
+  <div>stocksData {{stocksData.length}}</div>
 
 <!--   <div class="row">
     <div class="col-md-4">

@@ -12,6 +12,8 @@ export class AddStock {
 
   constructor(public stocksService:StocksService) { };
 
+  // TODO: Need to get the form to clear after submitting. 
+  //  See the Angular 2 docs on forms as it is covered in there. 
   addStock() {
     this.stocksService.addStock({symbol:this.symbol, own:this.own})
   }
