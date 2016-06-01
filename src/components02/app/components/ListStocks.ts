@@ -1,16 +1,14 @@
 // List people
 import {Component, EventEmitter, OnInit, DoCheck, SimpleChange, Input, Output} from 'angular2/core';
 import {StocksService} from './../services/StocksService';
-import {ArticlesService} from './../services/ArticlesService';
 
 @Component({
   selector: 'ListStocks',
-  templateUrl: './app/components/listStocks.html',
-  providers: [ArticlesService]
+  templateUrl: './app/components/listStocks.html'
 })
 export class ListStocks implements OnInit, DoCheck {
 
-  public @Output() showArticles: EventEmitter = new EventEmitter();
+  public @Output() showArticlesEvt: EventEmitter = new EventEmitter();
 
   public stocksData: Array<Object> = [];
   public prevStocksLength: number = -1;
@@ -20,7 +18,7 @@ export class ListStocks implements OnInit, DoCheck {
     { symbol: 'AAPL', own: 301 }
   ]
 
-  constructor(public stocksService:StocksService, public articlesService:ArticlesService) {
+  constructor(public stocksService:StocksService) {
   };
 
   ngOnInit() {
@@ -43,6 +41,7 @@ export class ListStocks implements OnInit, DoCheck {
 
   }
 
+  // TODO: Rename as it isn't fetching any more, it is subscribing
   fetchStocks() {
     this.stocksService.snapshot()
     .subscribe(

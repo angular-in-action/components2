@@ -9,6 +9,11 @@ body {
     padding-left: 20px;
 }
 
+addstock {
+    display: block;
+    margin-top: 30px;
+}
+
 .hero-spacer {
     margin-top: 50px;
 }

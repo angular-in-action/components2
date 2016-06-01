@@ -1,22 +1,22 @@
 // List people
-import {Component, EventEmitter, OnChanges, SimpleChange} from 'angular2/core';
+import {Component, EventEmitter, Input, OnChanges, SimpleChange} from 'angular2/core';
 import {ArticlesService} from './../services/ArticlesService';
 
 @Component({
   selector: 'NewsStocks',
   templateUrl: './app/components/newsStocks.html',
-  inputs: ['showArticles'],
   providers: [ArticlesService]
 })
 export class NewsStocks implements OnChanges {
 
+  public @Input() showArticlesFor: string = '';
   public articles: Array<any>;
 
   constructor(public articlesService:ArticlesService) { };
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-    if ( changes.showArticles && changes.showArticles.currentValue !== '') {
-      var currSymbol = changes.showArticles;
+    if ( changes.showArticlesFor && changes.showArticlesFor.currentValue !== '') {
+      var currSymbol = changes.showArticlesFor;
       if (currSymbol.previousValue !== currSymbol.currentValue) {
         this.fetchArticles(currSymbol.currentValue);
       }

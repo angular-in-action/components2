@@ -16,7 +16,7 @@ import {StocksService} from './services/StocksService';
 export class App implements AfterViewInit, AfterViewChecked{
 
   public stocksData: Array<Object> = [];
-  showArticles: string = '';
+  public showArticlesFor: string = '';
   @ViewChild(ListStocks)
   private _listStocks: ListStocks
 
@@ -37,6 +37,10 @@ export class App implements AfterViewInit, AfterViewChecked{
     },0)
   }
 
+  setShowArticlesFor(evt) {
+    this.showArticlesFor = evt;
+  }
+
   // TODO: Look at this again as I think it caused problems -- see what problems it caused
   //  and figured out when you would/wouldn't use it. 
   ngAfterViewChecked() {
@@ -52,4 +56,6 @@ export class App implements AfterViewInit, AfterViewChecked{
     // },0)
   }
 
+
+  
 }

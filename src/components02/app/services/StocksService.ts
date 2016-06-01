@@ -29,6 +29,7 @@ export class StocksService {
   }
   
   snapshot():any {
+    // create a list of symbols needed to send to the API
     var stocksSymbols = this.getStocks().map((stock) => {
       return stock.symbol;
     })
