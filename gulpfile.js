@@ -34,7 +34,8 @@ var PATHS = {
     ts: ['src/**/*.ts'],
     js: ['src/**/*.js'],
     html: 'src/**/*.html',
-    css: 'src/**/*.css',
+    css: ['src/css/**/*.css','!src/**/*.min.css'],
+    csscomp: ['src/compchapter/**/*.css'],
     img: 'src/**/*.{svg,jpg,png,ico}'
   },
   dist: 'dist',
@@ -115,6 +116,16 @@ gulp.task('css', function() {
     .pipe(gulp.dest(PATHS.distClient));
 });
 
+gulp.task('csscomp', function() {
+  return gulp
+    .src(PATHS.client.csscomp)
+    .pipe(changed(PATHS.distClient, {
+      extension: '.css'
+    }))
+    .pipe(gulp.dest(PATHS.distClient + '/compchapter'));
+});
+
+
 gulp.task('img', function() {
   return gulp
     .src(PATHS.client.img)
@@ -123,7 +134,7 @@ gulp.task('img', function() {
 });
 
 gulp.task('bundle', function(done) {
-  runSequence('clean', 'libs', 'lint', 'ts', 'js', 'html', 'css', 'img', done);
+  runSequence('clean', 'libs', 'lint', 'ts', 'js', 'html', 'css', 'csscomp', 'img', done);
 });
 
 gulp.task('server:restart', function(done) {
