@@ -18,7 +18,12 @@
     <script>
       System.config({
         //packages defines our app package
-        packages: {'app': {defaultExtension: 'js'}}
+        packages: {
+          'app': {defaultExtension: 'js'},
+          'components': {defaultExtension: 'js'},
+          'models': {defaultExtension: 'js'},
+          'services': {defaultExtension: 'js'}
+        }
       });
       
       System.import('app/bootstrap')

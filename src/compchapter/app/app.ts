@@ -1,16 +1,16 @@
 import {Component, View, AfterViewInit, AfterViewChecked, ViewChild} from 'angular2/core'
-import {StockSearch} from './components/stockSearch';
-import {StockNav} from './components/StockNav';
-import {AddStock} from './components/AddStock';
-import {TotalStock} from './components/TotalStock';
-import {ListStocks} from './components/ListStocks';
-import {NewsStocks} from './components/NewsStocks';
-import {StocksService} from './services/StocksService';
+// import {StockSearch} from './components/stockSearch';
+import {StockNav} from '../components/StockNav';
+import {AddStock} from '../components/AddStock';
+import {TotalStock} from '../components/TotalStock';
+import {ListStocks} from '../components/ListStocks';
+import {NewsStocks} from '../components/NewsStocks';
+import {StocksService} from '../services/StocksService';
 
 @Component({
   selector: 'App',
   templateUrl: './app/app.html',
-  directives: [StockSearch,StockNav,AddStock,TotalStock,ListStocks,NewsStocks],
+  directives: [StockNav,AddStock,TotalStock,ListStocks,NewsStocks],
   providers: [StocksService]
 })
 export class App implements AfterViewInit, AfterViewChecked{
@@ -20,9 +20,7 @@ export class App implements AfterViewInit, AfterViewChecked{
   @ViewChild(ListStocks)
   private _listStocks: ListStocks
 
-  constructor(){
-    
-  }
+  constructor(){}
 
   // TODO: Add something here to get the children of the ListStocks component so
   // we can get the total of the stocks owned. 

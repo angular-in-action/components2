@@ -1,17 +1,25 @@
 //a simple service
-import {Injectable} from 'angular2/core';
+import {Injectable, OnInit} from 'angular2/core';
 import {Http, URLSearchParams} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
-// import 'rxjs/add/operator/just';
 
 @Injectable()
-export class StocksService {
+export class StocksService implements OnInit {
 
   private _stocksList: Array = [];
   public counter: Number = 0;
 
-  // TS shortcut "public" to put http on this
-  constructor(public http: Http) {}
+  // The default stocks would normally be persisted for each user
+  defaultStocks = [
+    { symbol: 'CRM', own: 101 },
+    { symbol: 'AAPL', own: 301 }
+  ]
+
+  constructor(public http: Http) {
+    this.defaultStocks.forEach((item) => {
+      this.addStock(item);
+    })
+  }
   
   getStocks() {
     return this._stocksList;
@@ -39,6 +47,7 @@ export class StocksService {
     //   in ListStocks.
     if (! stocksSymbols.length) {
       console.log("about to return empty stream", Observable);
+      // return Observable.of([]);
     }
 
     let params = new URLSearchParams();
@@ -61,6 +70,8 @@ export class StocksService {
         }
         return x;
       })
+      // TODO: The following doesn't actually work, just results in an error being thrown
+      .catch(() => Observable.of([]))
   }
 
 
