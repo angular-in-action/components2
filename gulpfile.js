@@ -49,7 +49,7 @@ var tsProject = ts.createProject({
   experimentalDecorators: true,
   declaration: true,
   module: "system",
-  rootDir: ".",
+  rootDir: "./src",
   sourceMap: true,
   sourceRoot: ".",
   target: "es5",
