@@ -18,6 +18,7 @@ var DIST_DIR = path.join(__dirname, '..', 'dist');
 
 // Send static files from these directories
 app.use('/lib', express.static(DIST_DIR + '/lib'));
+app.use('/fonts', express.static(DIST_DIR + '/client/css/fonts'));
 app.use('/client', express.static(DIST_DIR + '/client'));
 app.use('/', express.static(DIST_DIR + '/client'));
 

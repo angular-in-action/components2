@@ -36,7 +36,8 @@ var PATHS = {
     html: 'src/**/*.html',
     css: ['src/css/**/*.css','!src/**/*.min.css'],
     csscomp: ['src/compchapter/**/*.css'],
-    img: 'src/**/*.{svg,jpg,png,ico}'
+    img: 'src/**/*.{jpg,png,ico}',      // removed '.svg' because only found in fonts
+    fonts: 'src/css/fonts/*.*'
   },
   dist: 'dist',
   distClient: 'dist/client',
@@ -125,6 +126,13 @@ gulp.task('csscomp', function() {
     .pipe(gulp.dest(PATHS.distClient + '/compchapter'));
 });
 
+gulp.task('fonts', function() {
+  return gulp
+    .src(PATHS.client.fonts)
+    .pipe(changed(PATHS.distClient, {}))
+    .pipe(gulp.dest(PATHS.distClient + '/css/fonts'));
+});
+
 
 gulp.task('img', function() {
   return gulp
@@ -134,7 +142,7 @@ gulp.task('img', function() {
 });
 
 gulp.task('bundle', function(done) {
-  runSequence('clean', 'libs', 'lint', 'ts', 'js', 'html', 'css', 'csscomp', 'img', done);
+  runSequence('clean', 'libs', 'lint', 'ts', 'js', 'html', 'css', 'csscomp', 'fonts', 'img', done);
 });
 
 gulp.task('server:restart', function(done) {
