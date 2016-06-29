@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="#stock of stocksData; #i=index">
+          <tr *ngFor="let stock of stocksData; let i=index">
             <td>{{i+1}}</td>
             <td>{{stock.symbol}}</td>
             <td>{{stock.marketCapitalization}}</td>
